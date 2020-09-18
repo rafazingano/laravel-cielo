@@ -1,0 +1,34 @@
+{
+  "name": "confrariaweb/laravel-cielo",
+  "version": "dev-master",
+  "description": "Laravel Cielo package",
+  "keywords": [
+    "cielo",
+    "framework",
+    "laravel"
+  ],
+  "license": "MIT",
+  "type": "package",
+  "authors": [
+    {
+      "name": "Rafael Zingano",
+      "email": "confrariaweb@gmail.com"
+    }
+  ],
+  "require": {
+    "developercielo/api-3.0-php": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ConfrariaWeb\\Cielo\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ConfrariaWeb\\Cielo\\Providers\\CieloServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}
