@@ -15,7 +15,7 @@ class CieloServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->publishes([__DIR__ . '/../../config/cw_cielo.php' => config_path('cw_cielo.php')], 'config');
     }
 
     /**
