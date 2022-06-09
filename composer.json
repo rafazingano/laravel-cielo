@@ -1,9 +1,9 @@
 {
-  "name": "confrariaweb/laravel-cielo",
+  "name": "confrariaweb/laravel-field",
   "version": "dev-master",
-  "description": "Laravel Cielo package",
+  "description": "Laravel Field package",
   "keywords": [
-    "cielo",
+    "field",
     "framework",
     "laravel"
   ],
@@ -16,17 +16,17 @@
     }
   ],
   "require": {
-    "developercielo/api-3.0-php": "^1.0"
+    "developerfield/api-3.0-php": "^1.0"
   },
   "autoload": {
     "psr-4": {
-      "ConfrariaWeb\\Cielo\\": "src"
+      "ConfrariaWeb\\Field\\": "src"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "ConfrariaWeb\\Cielo\\Providers\\CieloServiceProvider"
+        "ConfrariaWeb\\Field\\Providers\\FieldServiceProvider"
       ]
     }
   },

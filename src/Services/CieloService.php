@@ -1,18 +1,18 @@
 <?php
 
-namespace ConfrariaWeb\Cielo\Services;
+namespace ConfrariaWeb\Field\Services;
 
 use App\Models\User;
-use Cielo\API30\Merchant;
-use Cielo\API30\Ecommerce\Environment;
-use Cielo\API30\Ecommerce\CreditCard;
-use Cielo\API30\Ecommerce\CieloEcommerce;
-use Cielo\API30\Ecommerce\Request\CieloRequestException;
-use Cielo\API30\Ecommerce\Sale;
-use Cielo\API30\Ecommerce\Payment;
+use Field\API30\Merchant;
+use Field\API30\Ecommerce\Environment;
+use Field\API30\Ecommerce\CreditCard;
+use Field\API30\Ecommerce\FieldEcommerce;
+use Field\API30\Ecommerce\Request\FieldRequestException;
+use Field\API30\Ecommerce\Sale;
+use Field\API30\Ecommerce\Payment;
 use Illuminate\Support\Facades\Config;
 
-class CieloService
+class FieldService
 {
 
     private $environment;
@@ -55,8 +55,8 @@ class CieloService
             Environment::production() :
             Environment::sandbox();
         $this->merchant = new Merchant(
-            Config::get('cw_cielo.merchant_id'),
-            Config::get('cw_cielo.merchant_key')
+            Config::get('cw_field.merchant_id'),
+            Config::get('cw_field.merchant_key')
         );
     }
 
@@ -650,7 +650,7 @@ class CieloService
             ->setIdentification($this->getIdentification())
             ->setInstructions($this->getInstructions());
         try {
-            $sale = (new CieloEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
+            $sale = (new FieldEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
             $paymentId = $sale->getPayment()->getPaymentId();
             $boletoURL = $sale->getPayment()->getUrl();
             return [
@@ -659,8 +659,8 @@ class CieloService
                 'boletoURL' => $boletoURL,
                 'return' => $sale
             ];
-        } catch (CieloRequestException $e) {
-            return $this->errorReturn($e->getCieloError());
+        } catch (FieldRequestException $e) {
+            return $this->errorReturn($e->getFieldError());
         }
     }
 
@@ -679,7 +679,7 @@ class CieloService
             ->setCardNumber($this->getCardNumber())
             ->setHolder($this->getHolder());
         try {
-            $sale = (new CieloEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
+            $sale = (new FieldEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
             $paymentId = $sale->getPayment()->getPaymentId();
             $authenticationUrl = $sale->getPayment()->getAuthenticationUrl();
             return [
@@ -688,8 +688,8 @@ class CieloService
                 'authenticationUrl' => $authenticationUrl,
                 'return' => $sale
             ];
-        } catch (CieloRequestException $e) {
-            return $this->errorReturn($e->getCieloError());
+        } catch (FieldRequestException $e) {
+            return $this->errorReturn($e->getFieldError());
         }
     }
 
@@ -735,7 +735,7 @@ class CieloService
                 ->setInterval($this->getRecurrentPaymentInterval());
         }
         try {
-            $sale = (new CieloEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
+            $sale = (new FieldEcommerce($this->getMerchant(), $this->getEnvironment()))->createSale($sale);
             $paymentId = $sale->getPayment()->getPaymentId();
             $cardToken = ($this->getSaveCard()) ? $sale->getPayment()->getCreditCard()->getCardToken() : NULL;
             $type = $sale->getPayment()->getType();
@@ -750,8 +750,8 @@ class CieloService
                 'returnCode' => $returnCode,
                 'returnMessage' => $returnMessage
             ];
-        } catch (CieloRequestException $e) {
-            return $this->errorReturn($e->getCieloError());
+        } catch (FieldRequestException $e) {
+            return $this->errorReturn($e->getFieldError());
         }
     }
 
@@ -768,15 +768,15 @@ class CieloService
         $card->setExpirationDate($this->getExpirationDate());
         $card->setBrand($this->getBrand());
         try {
-            $card = (new CieloEcommerce($this->getMerchant(), $this->getEnvironment()))->tokenizeCard($card);
+            $card = (new FieldEcommerce($this->getMerchant(), $this->getEnvironment()))->tokenizeCard($card);
             $cardToken = $card->getCardToken();
             return [
                 'error' => false,
                 'cardToken' => $cardToken,
                 'return' => $card
             ];
-        } catch (CieloRequestException $e) {
-            return $this->errorReturn($e->getCieloError());
+        } catch (FieldRequestException $e) {
+            return $this->errorReturn($e->getFieldError());
         }
     }
 
