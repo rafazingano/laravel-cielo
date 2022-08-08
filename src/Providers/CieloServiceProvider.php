@@ -1,11 +1,11 @@
 <?php
 
-namespace ConfrariaWeb\Field\Providers;
+namespace ConfrariaWeb\Cielo\Providers;
 
-use ConfrariaWeb\Field\Services\FieldService;
+use ConfrariaWeb\Cielo\Services\CieloService;
 use Illuminate\Support\ServiceProvider;
 
-class FieldServiceProvider extends ServiceProvider
+class CieloServiceProvider extends ServiceProvider
 {
 
     /**
@@ -15,7 +15,7 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../../config/cw_field.php' => config_path('cw_field.php')], 'config');
+        $this->publishes([__DIR__ . '/../../config/cw_cielo.php' => config_path('cw_cielo.php')], 'config');
     }
 
     /**
@@ -25,8 +25,8 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('FieldService', function ($app) {
-            return new FieldService();
+        $this->app->bind('CieloService', function ($app) {
+            return new CieloService();
         });
     }
 

@@ -14,7 +14,7 @@ class CreatePersonsTable extends Migration
     public function up()
     {
 
-        chema::create('fields', function (Blueprint $table) {
+        chema::create('cielos', function (Blueprint $table) {
             $table->id();
             $table->string('type');
             $table->string('name');
@@ -32,7 +32,7 @@ class CreatePersonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('cielos');
 
     }
 }
